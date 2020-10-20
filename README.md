@@ -1,2 +1,6 @@
-# grnnbf
-Generalized RNN beamformer for speech separation
+# GENERALIZED RNN BEAMFORMER FOR TARGET SPEECH SEPARATION
+Demo for paper "GENERALIZED RNN BEAMFORMER FOR TARGET SPEECH SEPARATION" submitted to ICASSP2021
+
+Demo website: https://yongxuustc.github.io/grnnbf/
+
+Paper: 
