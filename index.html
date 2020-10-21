@@ -6,50 +6,12 @@
 </head>
 
 <body>
-<h2 id="neural-spatio-temporal-filtering-for-target-speech-separation">Neural Spatio-Temporal Beamformer for Target Speech Separation<a aria-label="Anchor" href="https://yongxuustc.github.io/mtmvdr/#neural-spatio-temporal-filtering-for-target-speech-separation" data-anchorjs-icon=""></a></h2>
-<p>submitted to Interspeech2020,   <strong>Yong XU</strong> (yong.xu.ustc@gmail.com), Meng Yu, Shixiong Zhang, Lianwu Chen, Chao Weng, Jianming Liu, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
+<h2 id="neural-spatio-temporal-filtering-for-target-speech-separation">GENERALIZED RNN BEAMFORMER FOR TARGET SPEECH SEPARATION</h2>
+<p>submitted to ICASSP2021,   <strong>*Yong XU</strong> (yong.xu.ustc@gmail.com), *Zhuohuang Zhang, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
 <p><img src="system_overview.png" width="971" height="443" /></p>
-<p>Purely NN based speech separation and enhancement methods, although can achieve good objective scores, inevitably cause <strong>nonlinear speech distortions</strong> that are harmful for ASR [5]. On the other hand, the MVDR beamformer with NN-predicted masks, although can significantly reduce speech distortions, has limited noise reduction capability. But our proposed <strong>CM-based multi-tap MVDR </strong>could achieve non-distortion and lower residual noise. For the <strong>commercial general-purpose ASR</strong> engine, non-distortion is more important than no residual noise, considering that the acoustic model is already robust enough to the mild-level noise (but NOT robust to the non-linear distortion introduced by NN).</p>
-<p><strong>Demo 1 (waveforms aligned with the spectrograms shown in Fig. 2 of the paper): </strong> <strong>[</strong>Sorry for that the demos below are all in Mandarin]<strong>:</strong></p>
-<p><img src="audio/mix.png" width="256" height="123" /> <img src="audio/relu_mask.png" width="251" height="121" /> <img src="audio/cm.png" width="269" height="121" /> <img src="audio/cm_mvdr.png" width="273" height="122" /></p>
-<table width="1068" border="1">
-  <tr>
-    <td width="248">Mix (2-SPK overlapped + non-stationary additive noise) <a href="audio/mix.wav">wav</a></td>
-    <td width="248">ReLU mask w/o MVDR (baseline) (has non-linear distortion, lost some details on the high freqency) <a href="audio/relu_mask.wav">wav</a></td>
-    <td width="275">Prop. Complex mask (CM) w/o MVDR (although better but still has non-linear distortion, also lost some details on the high freqency) <a href="audio/cm.wav">wav</a></td>
-    <td width="269">Complex mask MVDR Joint Train  (distortionless is firstly guaranteed, but with some residual noise) <a href="audio/cm_mvdr.wav">wav</a></td>
-  </tr>
-</table>
-<p><img src="audio/cm_multi-tab_mvdr.png" width="264" height="123" /> <img src="audio/clean.png" width="277" height="123" /></p>
-<table width="548" border="1">
-  <tr>
-    <td width="253" height="23"><p>Prop.  CM Multi-tap MVDR Joint trained (distortionless is firstly guaranteed, also less residual noise) <a href="audio/cm_multi-tab_mvdr.wav">wav</a></p></td>
-    <td width="277"><p>Reverb Clean (Reference clean) <a href="audio/clean.wav">wav</a></p></td>
-  </tr>
-</table>
-<p>&nbsp;</p>
-<p><strong>Demo2: Simulated 2-speaker mixture for target speech</strong> <strong>separation</strong></p>
-<p><img src="audio_2spk/10-10_mix.png" width="263" height="136" /> <img src="audio_2spk/10-10_nn_relu_baseline.png" width="271" height="137" /> <img src="audio_2spk/10-10_prop_cm_mtmvdr.png" width="280" height="139" /> <img src="audio_2spk/10-10_reverb_clean.png" width="265" height="140" /></p>
-<table width="1094" border="1">
-  <tr>
-    <td width="255">2-speaker mixture <a href="audio_2spk/spk1___10-10___mix.wav">wav</a></td>
-    <td width="277">enhanced by dilated CNN with ReLU mask (baseline) (has non-linear distortion, lost some details on the high freqency) <a href="audio_2spk/spk1___10-10___nn_relu_baseline.wav">wav</a></td>
-    <td width="266">enhanced by jointly trained dilated CNN with prop. multi-tap MVDR (distortionless is firstly guaranteed, also less residual noise) <a href="audio_2spk/spk1___10-10___mtmvdr_enh.wav">wav</a></td>
-    <td width="268">Reverb Clean (reference clean) <a href="audio_2spk/spk1___10-10___reverb_clean.wav">wav</a></td>
-  </tr>
-</table>
-<p>&nbsp;</p>
-<p><strong>Demo 3: Simulated 3-speaker mixture for target speech separation</strong></p>
-<p><img src="audio_3spk/10-7_mixture.png" width="266" height="135" /> <img src="audio_3spk/10-7_nn_relu_baseline.png" width="276" height="136" /> <img src="audio_3spk/10-7_mtmvdr_enh.png" width="281" height="136" /> <img src="audio_3spk/10-7_reverb_clean.png" width="268" height="136" /></p>
-<table width="1103" border="1">
-  <tr>
-    <td width="259">3-speaker mixture <a href="audio_3spk/spk1___10-7___mixture.wav">wav</a></td>
-    <td width="277">enhanced by dilated CNN with ReLU mask (baseline) (has non-linear distortion, lost some details on the high freqency) <a href="audio_3spk/spk1___10-7___nn_relu_baseline.wav">wav</a></td>
-    <td width="268">enhanced by jointly trained dilated CNN with prop. multi-tap MVDR (distortionless is firstly guaranteed, also less residual noise) <a href="audio_3spk/spk1___10-7___mtmvdr_enh.wav">wav</a></td>
-    <td width="271">Reverb Clean (reference clean) <a href="audio_3spk/spk1___10-7___reverb_clean.wav">wav</a></td>
-  </tr>
-</table>
-<p>&nbsp;</p>  
+<p>Demo 1: to be continued</p>
+<p>Demo 2: to be continued</p>
+<p>Demo 3: to be continued</p>
 <p><strong>Demo 4: Real-world far-field recording and testing:</strong></p>
 <p><img src="180degree-camera-and-15-element-mic-array.png" width="573" height="94" /></p>
 <p>15-element non-uniform linear microphone array and colocated 180 degree wide-angle camera for our real-world video and audio recording</p>
@@ -87,6 +49,7 @@
 <p>[7] Luo, Yi, and Nima Mesgarani. &quot;Conv-tasnet: Surpassing ideal time–frequency magnitude masking for speech separation.&quot; IEEE/ACM transactions on audio, speech, and language processing 27.8 (2019): 1256-1266.</p>
 <p>[8] Heymann, Jahn, Lukas Drude, and Reinhold Haeb-Umbach. &quot;Neural network based spectral mask estimation for acoustic beamforming.&quot; 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2016.</p>
 <p>[9] Benesty, Jacob, Jingdong Chen, and Emanuël AP Habets. Speech enhancement in the STFT domain. Springer Science &amp; Business Media, 2011.</p>
+<p>[10] Zhang, Zhuohuang, Yong Xu, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, and Dong Yu. &quot;ADL-MVDR: All deep learning MVDR beamformer for target speech separation.&quot; arXiv preprint arXiv:2008.06994 (2020).</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
