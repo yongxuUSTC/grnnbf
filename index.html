@@ -2,14 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Generalized RNN beamformer for target speech separation</title>
+<title>Multi-tap MVDR for target speech separation</title>
 </head>
 
 <body>
 <h2 id="neural-spatio-temporal-filtering-for-target-speech-separation">GENERALIZED RNN BEAMFORMER FOR TARGET SPEECH SEPARATION</h2>
 <p>submitted to ICASSP2021,   <strong>*Yong XU</strong> (yong.xu.ustc@gmail.com), *Zhuohuang Zhang, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
 <p><img src="system_overview.png" width="971" height="443" /></p>
-<p>Demo 1: to be continued</p>
+<p>Recently we proposed an all-deep-learning minimum variance distortionless response (ADL-MVDR) method where the unstable matrix inverse and principal component analysis (PCA) operations in the MVDR were replaced by recurrent neural networks (RNNs). However, it is not clear whether the success of the ADL-MVDR is owed to the calculated covariance matrices or following the MVDR formula. In this work, we demonstrate the importance of the calculated covariance matrices and propose three types of generalized RNN beamformers (GRNN-BFs) where the beamforming solution is beyond the MVDR and optimal. The GRNN-BFs could predict the frame-wise beamforming weights by leveraging on the temporal modeling capability of RNNs. The proposed GRNN-BF method obtains better performance than the state-of-the-art ADL-MVDR and the traditional mask-based MVDR methods in terms of speech quality (PESQ), speech-to-noise ratio (SNR), and word error rate (WER).</p>
+<p><strong>Demo 1:</strong> (waveforms aligned with the spectrograms shown in Fig. 2 of the paper): [Sorry for that the demos below are all in Mandarin]:</p>
+<p><img src="audio/mix.png" width="272" height="131" /> <img src="audio/cm.png" width="269" height="131" /> <img src="audio/cm_mvdr.png" width="271" height="132" /> <img src="audio/cm_multi-tab_mvdr.png" width="258" height="133" /></p>
+<table width="1086" height="37" border="1">
+  <tr>
+    <td width="267"><strong>Mixture</strong> (2-SPK overlapped + non-stationary additive noise) <a href="audio/mix.wav">wav</a></td>
+    <td width="267">cRF-based <strong>Purely NN</strong> (has non-linear distortion) <a href="audio/cm.wav">wav</a></td>
+    <td width="267">cRF-based <strong>MVDR</strong> [11] Jointly Trained (distortionless but with high residual noise level) <a href="audio/cm_mvdr.wav">wav</a></td>
+    <td width="257">cRF-based <strong>Multi-tap MVDR</strong> [11] Jointly trained (distortionless but still has some residual noise) <a href="audio/cm_multi-tab_mvdr.wav">wav</a></td>
+  </tr>
+</table>
+<p><img src="audio/spk1___0-2___adl-mvdr.png" width="276" height="140" /> <img src="audio/spk1_0-2_grnnbf.png" width="272" height="141" /> <img src="audio/clean.png" width="268" height="142" /></p>
+<table width="829" border="1">
+  <tr>
+    <td height="35">cRF-based <strong>ADL-MVDR</strong> [10] (distortionless but still has some audible residual noise) <a href="audio/spk1___0-2___adl-mvdr.wav">wav</a></td>
+    <td><strong>Proposed</strong> cRF-based <strong>GRNN-BF-II </strong>(distortionless and much less residual noise) <a href="audio/spk1___0-2___grnnbf.wav">wav</a></td>
+    <td>Reverb Clean (Reference clean) <a href="audio/clean.wav">wav</a></td>
+  </tr>
+</table>
 <p>Demo 2: to be continued</p>
 <p>Demo 3: to be continued</p>
 <p><strong>Demo 4: Real-world far-field recording and testing:</strong></p>
@@ -50,6 +68,7 @@
 <p>[8] Heymann, Jahn, Lukas Drude, and Reinhold Haeb-Umbach. &quot;Neural network based spectral mask estimation for acoustic beamforming.&quot; 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2016.</p>
 <p>[9] Benesty, Jacob, Jingdong Chen, and Emanuël AP Habets. Speech enhancement in the STFT domain. Springer Science &amp; Business Media, 2011.</p>
 <p>[10] Zhang, Zhuohuang, Yong Xu, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, and Dong Yu. &quot;ADL-MVDR: All deep learning MVDR beamformer for target speech separation.&quot; arXiv preprint arXiv:2008.06994 (2020).</p>
+<p>[11] Xu, Yong, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, Chao Weng, Jianming Liu, and Dong Yu. &quot;Neural Spatio-Temporal Beamformer for Target Speech Separation.&quot; accepted to Interspeech2020.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
