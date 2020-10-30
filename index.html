@@ -10,6 +10,7 @@
 <p>submitted to ICASSP2021,   <strong>*Yong XU</strong> (yong.xu.ustc@gmail.com), *Zhuohuang Zhang, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
 <p><img src="system_overview.png" width="971" height="443" /></p>
 <p>Purely NN based speech separation method, although can achieve good objective scores, inevitably cause nonlinear speech distortions that are harmful for ASR [5]. On the other hand, the mask based traditional MVDR beamformer, although can significantly reduce speech distortions, has limited noise reduction capability. Recently we proposed an all-deep-learning minimum variance distortionless response (ADL-MVDR) method where the unstable matrix inverse and principal component analysis (PCA) operations in the MVDR were replaced by recurrent neural networks (RNNs). However, it is not clear whether the success of the ADL-MVDR is owed to the calculated covariance matrices or following the MVDR formula. In this work, we demonstrate the importance of the calculated covariance matrices and propose three types of generalized RNN beamformers (GRNN-BFs) where the beamforming solution is beyond the MVDR and optimal. The GRNN-BFs could predict the frame-wise beamforming weights by leveraging on the temporal modeling capability of RNNs. The proposed GRNN-BF method obtains better performance than the state-of-the-art ADL-MVDR and the traditional mask-based MVDR methods in terms of speech quality (PESQ), speech-to-noise ratio (SNR), and word error rate (WER).</p>
+<p>Different from previous deep beamforming work [12], the proposed GRNN-beamformer method disassembles the deep learning &quot;black box&quot; with explicitly calculated target speech and noise covariance matrices in the intermediate layer. The calculated frame-wise target speech and noise covariance matrices have concrete physical meanings to derive the optimal frame-wise beamforming filter.</p>
 <p><strong>Demo 1:</strong> (waveforms aligned with the spectrograms shown in Fig. 2 of the paper): [Sorry for that the demos below are all in Mandarin]:</p>
 <p><img src="audio/mix.png" width="272" height="131" /> <img src="audio/cm.png" width="269" height="131" /> <img src="audio/cm_mvdr.png" width="271" height="132" /> <img src="audio/cm_multi-tab_mvdr.png" width="258" height="133" /></p>
 <table width="1086" height="37" border="1">
@@ -24,13 +25,30 @@
 <table width="829" border="1">
   <tr>
     <td width="269" height="35">cRF-based <strong>ADL-MVDR</strong> [10] (distortionless but still has some audible residual noise) <a href="audio/spk1___0-2___adl-mvdr.wav">wav</a></td>
-    <td width="275"><strong>Proposed</strong> cRF-based <strong>GRNN-BF-II </strong>(distortionless and much less residual noise) <a href="audio/spk1___0-2___grnnbf.wav">wav</a></td>
+    <td width="275"><strong>Proposed</strong> cRF-based <strong>GRNN-BF-II </strong>(distortionless and nearly no residual noise) <a href="audio/spk1___0-2___grnnbf.wav">wav</a></td>
     <td width="263">Reverb Clean (Reference clean) <a href="audio/clean.wav">wav</a></td>
   </tr>
 </table>
-<p>Demo 2: to be continued</p>
-<p>Demo 3: to be continued</p>
-<p><strong>Demo 4: Real-world far-field recording and testing:</strong></p>
+<p>&nbsp;</p>
+<p><strong>Demo 2: Simulated 3-speakers overlapped mixture for target speech separation</strong></p>
+<p><img src="audio_3spk/10-7_mixture.png" width="276" height="140" /> <img src="audio_3spk/10-7_nn_relu_baseline.png" width="271" height="140" /> <img src="audio_3spk/10-7_mtmvdr_enh.png" width="272" height="140" /> <img src="audio_3spk/10-7_mtmvdr_enh.png" width="274" height="140" /></p>
+<table width="1105" border="1">
+  <tr>
+    <td width="271">3-speakers overlapped mixture <a href="audio_3spk/spk1___10-7___mixture.wav">wav</a></td>
+    <td width="267">Purely NN enhanced (has non-linear distortion) <a href="audio_3spk/spk1___10-7___purelyNN_baseline.wav">wav</a></td>
+    <td width="272"><strong>Multi-tap MVDR</strong> [11] Jointly trained (distortionless but still has some residual noise) <a href="audio_3spk/spk1___10-7___mtmvdr_enh.wav">wav</a></td>
+    <td width="267"><strong>ADL-MVDR</strong> [10] (distortionless but still has some audible residual noise) <a href="audio_3spk/spk1___10-7___adlmvdr_enh.wav">wav</a></td>
+  </tr>
+</table>
+<p><img src="audio_3spk/10-7_prop-grnnbf-ii_enh.png" width="280" height="155" /> <img src="audio_3spk/10-7_reverb_clean.png" width="267" height="154" /></p>
+<table width="552" border="1">
+  <tr>
+    <td><strong>Proposed</strong> <strong>GRNN-BF-II </strong>(distortionless and nearly no residual noise) <a href="audio_3spk/spk1___10-7___proposed_GRNN-BF-II_enh.wav">wav</a></td>
+    <td>Reverb Clean (Reference clean) <a href="audio_3spk/spk1___10-7___reverb_clean.wav">wav</a></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><strong>Demo 3: Real-world far-field recording and testing:</strong></p>
 <p><img src="180degree-camera-and-15-element-mic-array.png" width="573" height="94" /></p>
 <p>15-element non-uniform linear microphone array and colocated 180 degree wide-angle camera for our real-world video and audio recording</p>
 <p>For the real-world videos, as the 180-degree wide-angle camera is colocated with the linear mic array, the rough DOA of the target speaker could be estimated according to the location of the target speaker in the whole camera view [1]. Face detection and face tracking are conducted to track the target speaker's DOA. (Note that in our simulation data, there is no need to do face tracking, because the video of each overlapped speaker is already in single-face mode after the data cleaning and filtering process.)</p>
@@ -41,13 +59,13 @@
 </p>
 <table width="870" border="1">
   <tr>
-    <td>Real-world far-field <strong>two-speaker mixture</strong> recorded by the hardware (camera and microphone array ) above</td>
-    <td>Real-world <strong>separated male speaker's speech</strong> by the Multi-tap MVDR method (face detected and tracked in the red rectangle)</td>
-    <td>Real-world <strong>separated male speaker's speech</strong> by the <strong>proposed GRNN-BF-II </strong>method (face detected and tracked in the red rectangle)</td>
+    <td width="280">Real-world far-field <strong>two-speaker mixture</strong> recorded by the hardware (camera and microphone array ) above</td>
+    <td width="291">Real-world <strong>separated male speaker's speech</strong> by the Multi-tap MVDR method (face detected and tracked in the red rectangle)</td>
+    <td width="277">Real-world <strong>separated male speaker's speech</strong> by the <strong>proposed GRNN-BF-II </strong>method (face detected and tracked in the red rectangle)</td>
   </tr>
 </table>
 <p>&nbsp;</p>
-<p><strong>Demo 5: Real-world far-field recording and testing 2:</strong></p>
+<p><strong>Demo 4: Real-world far-field recording and testing 2:</strong></p>
 <p>
   <video src="video/real_world_demo2_mixture.mp4" width="287" height="136" controls preload></video>
   <video src="video/real_world_demo2_female_enh_mtmvdr.mp4" width="287" height="136" controls preload></video>
@@ -73,6 +91,7 @@
 <p>[9] Benesty, Jacob, Jingdong Chen, and Emanuël AP Habets. Speech enhancement in the STFT domain. Springer Science &amp; Business Media, 2011.</p>
 <p>[10] Zhang, Zhuohuang, Yong Xu, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, and Dong Yu. &quot;ADL-MVDR: All deep learning MVDR beamformer for target speech separation.&quot; arXiv preprint arXiv:2008.06994 (2020).</p>
 <p>[11] Xu, Yong, Meng Yu, Shi-Xiong Zhang, Lianwu Chen, Chao Weng, Jianming Liu, and Dong Yu. &quot;Neural Spatio-Temporal Beamformer for Target Speech Separation.&quot; accepted to Interspeech2020.</p>
+<p>[12] Xiao, Xiong, Chenglin Xu, Zhaofeng Zhang, Shengkui Zhao, Sining Sun, Shinji Watanabe, Longbiao Wang et al. &quot;A study of learning based beamforming methods for speech recognition.&quot; In CHiME 2016 workshop, pp. 26-31. 2016.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
