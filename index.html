@@ -16,7 +16,7 @@
 <table width="1086" height="37" border="1">
   <tr>
     <td width="267"><strong>Mixture</strong> (2-SPK overlapped + non-stationary additive noise) <a href="audio/mix.wav">wav</a></td>
-    <td width="267">cRF-based <strong>Purely NN</strong> (has non-linear distortion) <a href="audio/cm.wav">wav</a></td>
+    <td width="267">cRF-based <strong>Conv-TasNet with STFT</strong> (has non-linear distortion) <a href="audio/cm.wav">wav</a></td>
     <td width="267">cRF-based <strong>MVDR</strong> [11] Jointly Trained (distortionless but with high residual noise level) <a href="audio/cm_mvdr.wav">wav</a></td>
     <td width="257">cRF-based <strong>Multi-tap MVDR</strong> [11] Jointly trained (distortionless but still has some residual noise) <a href="audio/cm_multi-tab_mvdr.wav">wav</a></td>
   </tr>
@@ -35,7 +35,7 @@
 <table width="1105" border="1">
   <tr>
     <td width="271">3-speakers overlapped mixture <a href="audio_3spk/spk1___10-7___mixture.wav">wav</a></td>
-    <td width="267">Purely NN enhanced (has non-linear distortion) <a href="audio_3spk/spk1___10-7___purelyNN_baseline.wav">wav</a></td>
+    <td width="267">Conv-TasNet with STFT enhanced (has non-linear distortion) <a href="audio_3spk/spk1___10-7___purelyNN_baseline.wav">wav</a></td>
     <td width="272"><strong>Multi-tap MVDR</strong> [11] Jointly trained (distortionless but still has some residual noise) <a href="audio_3spk/spk1___10-7___mtmvdr_enh.wav">wav</a></td>
     <td width="267"><strong>ADL-MVDR</strong> [10] (distortionless but still has some audible residual noise) <a href="audio_3spk/spk1___10-7___adlmvdr_enh.wav">wav</a></td>
   </tr>
