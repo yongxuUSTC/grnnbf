@@ -10,11 +10,11 @@
 <p>Accepted to Interspeech2021,   <strong>*Yong XU</strong> (yong.xu.ustc@gmail.com), Zhuohuang Zhang, Meng Yu, Shi-Xiong Zhang, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
 <p><img src="system_overview.png" width="1033" height="194" /></p>
 
-<p>Some tricks to successfully train a robust RNN beamformer</p>  
+<p>Some tricks to successfully train a robust RNN beamformer: </p>  
 <p>1): using learning rate 1.0e-4 </p>
 <p>2): adding 1.0-e10 to all predicted imaginary parts, otherwise there might be some "NaN" problems </p>
 <p>3): clip gradient norm, torch.nn.utils.grad_norm=clip_grad_norm_(self.nnet.parameters(), 10) </p>
-<p>4): if multi-in and multi-speaker-out model is trained, there might be lots of silence in the reference waveforms, you can calculate the Si-SNR loss ONLY on the valid speakers including the loss in the begining/tail silence in that existed speaker's utternace. (SiSNR can be calculated as long as there is some valid speech in that utterance/chunk). It is no need to calculate the SiSNR loss if the speaker is non-existed which means that the reference wav is all zeros, SiSNR will be ill-defined if the target reference is all zeros </p>  
+<p>4): if multi-in and multi-speaker-out model is trained, there might be lots of silence in the reference waveforms, you can calculate the Si-SNR loss ONLY on the valid speakers including the loss in the begining/tail silence in that existed speaker's utterance. (SiSNR can be calculated as long as there is some valid speech in that utterance/chunk). It is no need to calculate the SiSNR loss if the speaker is non-existed which means that the reference wav is all zeros, SiSNR will be ill-defined if the target reference is all zeros </p>  
 <p>5): for the RNN-Beamformer module, 257 freq bins share the same RNN model which is consistent with frequency independent assumption in the traditional MVDR algorithm. So the input shape is : [B, F, T, channel features of \phi], the output shape is [B, F, T, num_of_channel*2]. </p>
 <p>6): self-attention could be concatenated with the RNN model, which can significantly improve the performance. https://arxiv.org/pdf/2104.08450.pdf </p>
   
