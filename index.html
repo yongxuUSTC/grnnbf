@@ -6,9 +6,18 @@
 </head>
 
 <body>
-<h2 id="neural-spatio-temporal-filtering-for-target-speech-separation">Generalized Spatio-Temporal RNN Beamformer for Target Speech Separation</h2>
+<h2 id="Generalized Spatio-Temporal RNN Beamformer for Target Speech Separation">Generalized Spatio-Temporal RNN Beamformer for Target Speech Separation</h2>
 <p>Accepted to Interspeech2021,   <strong>*Yong XU</strong> (yong.xu.ustc@gmail.com), Zhuohuang Zhang, Meng Yu, Shi-Xiong Zhang, Dong Yu, <strong>Tencent AI lab, Bellevue, WA, USA</strong></p>
 <p><img src="system_overview.png" width="1033" height="194" /></p>
+
+<p>Some tricks to successfully train a robust RNN beamformer</p>  
+<p>1): using learning rate 1.0e-4 </p>
+<p>2): adding 1.0-e10 to all predicted imaginary parts, otherwise there might be some "NaN" problems </p>
+<p>3): clip gradient norm, torch.nn.utils.grad_norm=clip_grad_norm_(self.nnet.parameters(), 10) </p>
+<p>4): if multi-in and multi-speaker-out model is trained, there might be lots of silence in the reference waveforms, you can calculate the Si-SNR loss ONLY on the valid speakers including the loss in the begining/tail silence in that existed speaker's utternace. (SiSNR can be calculated as long as there is some valid speech in that utterance/chunk). It is no need to calculate the SiSNR loss if the speaker is non-existed which means that the reference wav is all zeros, SiSNR will be ill-defined if the target reference is all zeros </p>  
+<p>5): for the RNN-Beamformer module, 257 freq bins share the same RNN model which is consistent with frequency independent assumption in the traditional MVDR algorithm. So the input shape is : [B, F, T, channel features of \phi], the output shape is [B, F, T, num_of_channel*2]. </p>
+<p>6): self-attention could be concatenated with the RNN model, which can significantly improve the performance. https://arxiv.org/pdf/2104.08450.pdf </p>
+  
 <p>Although the conventional mask-based minimum variance distortionless response (MVDR) could reduce the non-linear distortion, the residual noise level of the MVDR separated speech is still high. In this paper, we propose a spatio-temporal recurrent neural network based beamformer (RNN-BF) for target speech separation. This new beamforming framework directly learns the beamforming weights from the estimated speech and noise spatial covariance matrices. Leveraging on the temporal modeling capability of RNNs, the RNN-BF could automatically accumulate the statistics of the speech and noise covariance matrices to learn the frame-level beamforming weights in a recursive way. An RNN-based generalized eigenvalue (RNN-GEV) beamformer and a more generalized RNN beamformer (GRNN-BF) are proposed. We further improve the RNN-GEV and the GRNN-BF by using layer normalization to replace the commonly used mask normalization on the covariance matrices. The proposed GRNN-BF obtains better performance against prior arts in terms of speech quality (PESQ), speech-to-noise ratio (SNR) and word error rate (WER). </p>
 <p><strong>Demo 1:</strong> (waveforms aligned with the spectrograms shown in Fig. 2 of the paper): [Sorry for that the demos below are all in Mandarin]:</p>
 <p><img src="audio/mix.png" width="272" height="131" /> <img src="audio/cm.png" width="269" height="131" /> <img src="audio/cm_mvdr.png" width="271" height="132" /> <img src="audio/cm_multi-tab_mvdr.png" width="258" height="133" /></p>
